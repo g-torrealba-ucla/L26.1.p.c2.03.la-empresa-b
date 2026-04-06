@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curso - HTML Plano</title>
+</head>
+
+<body>
+
+  <section id="body">
+    <h2>Gestión de notas (HTML Plano)</h2>
+    <button id="body_btNuevoAlumno">Nuevo alumno</button>
+    <hr>
+    <div>
+      La nota promedio es: <span id="body_lblNotaPromedio">0</span>
+    </div>
+  </section>
+
+  <section id="alumno" hidden style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 300px;">
+    <h5 id="alumno_lblAlumno">Procesar Alumno</h5>
+    <div>
+      <label>Nombre:
+        <input type="text" id="alumno_inNombre" placeholder="Nombre del alumno">
+      </label>
+    </div>
+    <div>
+      <label>Cédula:
+        <input type="number" id="alumno_inCedula" placeholder="Ej: 25123456">
+      </label>
+    </div>
+    <div>
+      <label>Nota 1:
+        <input type="number" id="alumno_inNota1" placeholder="Ej: 20">
+      </label>
+    </div>
+    <div>
+      <label>Nota 2:
+        <input type="number" id="alumno_inNota2" placeholder="Ej: 20">
+      </label>
+    </div>
+    <div>
+      <label>Nota 3:
+        <input type="number" id="alumno_inNota3" placeholder="Ej: 20">
+      </label>
+    </div>
+    <br>
+    <button id="alumno_btCancelar">Cancelar</button>
+    <button id="alumno_btAceptar">Aceptar</button>
+  </section>
+
+  <script type="module">
+    import Cl_cCurso from "./dist/controllers/Cl_cCurso.js";
+    import Cl_cAlumno from "./dist/controllers/Cl_cAlumno.js";
+
+    // Importamos SOLO las vistas planas
+    import Cl_vCursoPlain from "./dist/views/Cl_vCursoPlain.js";
+    import Cl_vAlumnoPlain from "./dist/views/Cl_vAlumnoPlain.js";
+
+    // 1. Instanciamos las vistas
+    const vistaCurso = new Cl_vCursoPlain();
+    const vistaAlumno = new Cl_vAlumnoPlain();
+
+    // 2. Inyectamos las vistas en los controladores (¡La magia ocurre aquí!)
+    const controladorAlumno = new Cl_cAlumno(vistaAlumno);
+    new Cl_cCurso(vistaCurso, controladorAlumno);
+  </script>
+</body>
+
+</html>

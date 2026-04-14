@@ -17,7 +17,7 @@ export default class Cl_mObrero extends Cl_mEmpleado {
     this.bono = bono;
   }
   set bono(bono: number) {
-    this._bono = bono;
+    this._bono = +bono;
   }
   get bono(): number {
     return this._bono;

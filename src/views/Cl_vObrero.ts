@@ -1,7 +1,6 @@
-import { I_vAlumno } from "../interfaces/I_vAlumno.js";
-declare var bootstrap: any;
+import { I_vAlumno } from "../interfaces/I_vAlumno";
 
-export default class Cl_vAlumnoBootstrap implements I_vAlumno {
+export default class Cl_vAlumnoPlain implements I_vAlumno {
   inNombre: HTMLInputElement;
   btCancelar: HTMLButtonElement;
   btAceptar: HTMLButtonElement;
@@ -10,8 +9,6 @@ export default class Cl_vAlumnoBootstrap implements I_vAlumno {
   inNota1: HTMLInputElement;
   inNota2: HTMLInputElement;
   inNota3: HTMLInputElement;
-  private modal: any;
-
   constructor() {
     this.vista = document.getElementById("alumno") as HTMLElement;
     this.inNombre = document.getElementById(
@@ -35,8 +32,6 @@ export default class Cl_vAlumnoBootstrap implements I_vAlumno {
     this.btAceptar = document.getElementById(
       "alumno_btAceptar",
     ) as HTMLButtonElement;
-    const elementoModal = document.getElementById("alumno");
-    this.modal = new bootstrap.Modal(elementoModal);
   }
   get nombre(): string {
     return this.inNombre.value.trim();
@@ -59,15 +54,13 @@ export default class Cl_vAlumnoBootstrap implements I_vAlumno {
   onCancelar(callback: () => void): void {
     this.btCancelar.onclick = callback;
   }
+
   mostrar(): void {
-    this.inNombre.value = ""; 
-    this.inCedula.value = "";
-    this.inNota1.value = "";
-    this.inNota2.value = "";
-    this.inNota3.value = "";
-    this.modal.show();
+    if (this.vista === null) return;
+    this.vista.hidden = false;
   }
   ocultar(): void {
-    this.modal.hide();
+    if (this.vista === null) return;
+    this.vista.hidden = true;
   }
 }

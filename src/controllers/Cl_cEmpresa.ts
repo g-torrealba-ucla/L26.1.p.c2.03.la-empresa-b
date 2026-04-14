@@ -17,7 +17,7 @@
 
 import Cl_mCurso from "../models/Cl_mEmpresa.js";
 import { I_vCurso } from "../interfaces/I_vCurso.js";
-import Cl_cAlumno from "./Cl_cEmpleado.js";
+import Cl_cAlumno from "./Cl_cAdministrativo.js";
 
 export default class Cl_cCurso {
   private mCurso: Cl_mCurso = new Cl_mCurso();

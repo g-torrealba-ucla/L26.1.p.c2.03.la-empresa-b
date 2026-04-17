@@ -1,36 +1,32 @@
-import { I_vAlumno } from "../interfaces/I_vAlumno";
+import I_vEmpleado from "../interfaces/I_vEmpleado";
 
-export default class Cl_vAlumnoPlain implements I_vAlumno {
+export default class Cl_vAdministrativo implements I_vEmpleado {
   inNombre: HTMLInputElement;
+  inCedula: HTMLInputElement;
+  inSueldoActual: HTMLInputElement;
+  inHijos: HTMLInputElement;
   btCancelar: HTMLButtonElement;
   btAceptar: HTMLButtonElement;
   vista: HTMLElement;
-  inCedula: HTMLInputElement;
-  inNota1: HTMLInputElement;
-  inNota2: HTMLInputElement;
-  inNota3: HTMLInputElement;
   constructor() {
-    this.vista = document.getElementById("alumno") as HTMLElement;
+    this.vista = document.getElementById("administrativo") as HTMLElement;
     this.inNombre = document.getElementById(
-      "alumno_inNombre",
+      "administrativo_inNombre",
     ) as HTMLInputElement;
     this.inCedula = document.getElementById(
-      "alumno_inCedula",
+      "administrativo_inCedula",
     ) as HTMLInputElement;
-    this.inNota1 = document.getElementById(
-      "alumno_inNota1",
+    this.inSueldoActual = document.getElementById(
+      "administrativo_inSueldoActual"
     ) as HTMLInputElement;
-    this.inNota2 = document.getElementById(
-      "alumno_inNota2",
-    ) as HTMLInputElement;
-    this.inNota3 = document.getElementById(
-      "alumno_inNota3",
+    this.inHijos = document.getElementById(
+      "administrativo_inHijos"
     ) as HTMLInputElement;
     this.btCancelar = document.getElementById(
-      "alumno_btCancelar",
+      "administrativo_btCancelar",
     ) as HTMLButtonElement;
     this.btAceptar = document.getElementById(
-      "alumno_btAceptar",
+      "administrativo_btAceptar",
     ) as HTMLButtonElement;
   }
   get nombre(): string {
@@ -39,15 +35,16 @@ export default class Cl_vAlumnoPlain implements I_vAlumno {
   get cedula(): number {
     return this.inCedula ? +this.inCedula.value : 0;
   }
-  get nota1(): number {
-    return this.inNota1 ? +this.inNota1.value : 0;
+  get sueldoActual(): number {
+    return this.inSueldoActual ? +this.inSueldoActual.value : 0;
   }
-  get nota2(): number {
-    return this.inNota2 ? +this.inNota2.value : 0;
+  get bono(): number | undefined {
+    return undefined;
   }
-  get nota3(): number {
-    return this.inNota3 ? +this.inNota3.value : 0;
+  get hijos(): number | undefined {
+    return this.inHijos ? +this.inHijos.value : undefined;
   }
+
   onAceptar(callback: () => void): void {
     this.btAceptar.onclick = callback;
   }
@@ -62,5 +59,11 @@ export default class Cl_vAlumnoPlain implements I_vAlumno {
   ocultar(): void {
     if (this.vista === null) return;
     this.vista.hidden = true;
+  }
+  limpiar(): void {
+    this.inNombre.value = "";
+    this.inCedula.value = "";
+    this.inSueldoActual.value = "";
+    this.inHijos.value = "";
   }
 }

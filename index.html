@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Curso - HTML Plano</title>
+  <title>Empresa - HTML Plano</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
   <section id="body">
     <h2>Gestión de empresa</h2>
     <button id="body_btAgregarObrero">Agregar obrero</button>
-    <button id="body_btAgregarAdministrtivo">Agregar Administrativo</button>
+    <button id="body_btAgregarAdministrativo">Agregar Administrativo</button>
     <hr>
     <div>
       Empleado que recibirá el mayor aumento: <span id="body_lblNombreMayorAumento">0</span>
@@ -21,6 +21,8 @@
       El total de la nómina nueva: <span id="body_lblTotalNominaNueva">0</span>
     </div>
   </section>
+
+  <!-- Obrero -->
 
   <section id="obrero" hidden style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 300px;">
     <h5 id="alumno_lblAlumno">Procesar Obrero</h5>
@@ -36,18 +38,20 @@
     </div>
     <div>
       <label>Sueldo actual:
-        <input type="number" id="alumno_inSueldoActual" placeholder="Ej: 20">
+        <input type="number" id="obrero_inSueldoActual" placeholder="Ej: 20">
       </label>
     </div>
     <div>
       <label>Bono:
-        <input type="number" id="alumno_inBono" placeholder="Ej: 20">
+        <input type="number" id="obrero_inBono" placeholder="Ej: 20">
       </label>
     </div>
     <br>
-    <button id="alumno_btCancelar">Cancelar</button>
-    <button id="alumno_btAceptar">Aceptar</button>
+    <button id="obrero_btCancelar">Cancelar</button>
+    <button id="obrero_btAceptar">Aceptar</button>
   </section>
+
+  <!-- Administrativo -->
 
   <section id="administrativo" hidden style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 300px;">
     <h5 id="administrativo_lblAdministrativo">Procesar Administrativo</h5>
@@ -68,29 +72,35 @@
     </div>
     <div>
       <label>Cantidad de hijos:
-        <input type="number" id="alumno_inHijos" placeholder="Ej: 20">
+        <input type="number" id="administrativo_inHijos" placeholder="Ej: 20">
       </label>
     </div>
     <br>
-    <button id="adminsitrativo_btCancelar">Cancelar</button>
-    <button id="adminsitrativo_btAceptar">Aceptar</button>
+    <button id="administrativo_btCancelar">Cancelar</button>
+    <button id="administrativo_btAceptar">Aceptar</button>
   </section>
 
   <script type="module">
-    import Cl_cCurso from "./dist/controllers/Cl_cCurso.js";
-    import Cl_cAlumno from "./dist/controllers/Cl_cAlumno.js";
+    import Cl_cEmpresa from "./dist/controllers/Cl_cEmpresa.js";
+    import Cl_cObrero from "./dist/controllers/Cl_cObrero.js";
+    import Cl_cAdministrativo from "./dist/controllers/Cl_cAdministrativo.js";
 
-    // Importamos SOLO las vistas planas
-    import Cl_vCursoPlain from "./dist/views/Cl_vCursoPlain.js";
-    import Cl_vAlumnoPlain from "./dist/views/Cl_vAlumnoPlain.js";
+    // Importamos las vistas
+    import Cl_vEmpresa from "./dist/views/Cl_vEmpresa.js";
+    import Cl_vObrero from "./dist/views/Cl_vObrero.js";
+    import Cl_vAdministrativo from "./dist/views/Cl_vAdministrativo.js";
 
     // 1. Instanciamos las vistas
-    const vistaCurso = new Cl_vCursoPlain();
-    const vistaAlumno = new Cl_vAlumnoPlain();
+    const vistaEmpresa = new Cl_vEmpresa();
+    const vistaObrero = new Cl_vObrero();
+    const vistaAdministrativo = new Cl_vAdministrativo();
 
-    // 2. Inyectamos las vistas en los controladores (¡La magia ocurre aquí!)
-    const controladorAlumno = new Cl_cAlumno(vistaAlumno);
-    new Cl_cCurso(vistaCurso, controladorAlumno);
+    // 2. Inyectamos las vistas en los controladores
+    const controladorObrero = new Cl_cObrero(vistaObrero);
+    const controladorAdministrativo = new Cl_cAdministrativo(vistaAdministrativo);
+
+    // 3. Instanciamos el controlador principal con las vistas y los controladores
+    new Cl_cEmpresa(vistaEmpresa, vistaObrero, vistaAdministrativo, controladorObrero, controladorAdministrativo);
   </script>
 </body>
 

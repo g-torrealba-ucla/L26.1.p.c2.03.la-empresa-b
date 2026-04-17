@@ -1,17 +1,17 @@
-import { I_vAlumno } from "../interfaces/I_vAlumno.js";
-import Cl_mAlumno from "../models/Cl_mEmpleado.js";
+import I_vEmpleado from "../interfaces/I_vEmpleado.js";
+import Cl_mObrero from "../models/Cl_mObrero.js";
 
-export default class Cl_cAlumno {
-  private vista: I_vAlumno;
-  private callback!: (alumno: Cl_mAlumno | null) => void;
-  constructor(vista: I_vAlumno) {
+export default class Cl_cObrero {
+  private vista: I_vEmpleado;
+  private callback!: (empleado: Cl_mObrero | null) => void;
+  constructor(vista: I_vEmpleado) {
     this.vista = vista;
     // El controlador se suscribe a los eventos de la interfaz
     this.vista.onCancelar(() => this.btCancelarOnClick());
     this.vista.onAceptar(() => this.btAceptarOnClick());
   }
   // Método para que la Curso llame a este controlador
-  solicitarAlumno(callback: (alumno: Cl_mAlumno | null) => void) {
+  solicitarAlumno(callback: (empleado: Cl_mObrero | null) => void) {
     this.callback = callback;
     this.vista.mostrar();
   }
@@ -21,14 +21,14 @@ export default class Cl_cAlumno {
   }
   private btAceptarOnClick() {
     this.callback(
-      new Cl_mAlumno({
+      new Cl_mObrero({
         nombre: this.vista.nombre,
         cedula: this.vista.cedula,
-        nota1: this.vista.nota1,
-        nota2: this.vista.nota2,
-        nota3: this.vista.nota3,
+        sueldoActual: this.vista.sueldoActual,
+        bono: this.vista.bono || 0,
       }),
     );
+    this.vista.limpiar();
     this.vista.ocultar();
   }
 }

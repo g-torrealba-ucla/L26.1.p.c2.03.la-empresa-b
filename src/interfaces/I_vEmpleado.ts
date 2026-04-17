@@ -1,11 +1,12 @@
-export interface I_vAlumno {
+export default interface I_vEmpleado {
   get nombre(): string;
   get cedula(): number;
-  get nota1(): number;
-  get nota2(): number;
-  get nota3(): number;
+  get sueldoActual(): number;
+  get bono(): number | undefined;
+  get hijos(): number | undefined;
   mostrar(): void;
   ocultar(): void;
+  limpiar(): void;
   onAceptar(callback: () => void): void;
   onCancelar(callback: () => void): void;
 }

@@ -1,4 +1,4 @@
-import Cl_mEmpleado from "./Cl_mEmpleado";
+import Cl_mEmpleado from "./Cl_mEmpleado.js";
 
 export default class Cl_mAdministrativo extends Cl_mEmpleado {
   private _hijos: number = 0;

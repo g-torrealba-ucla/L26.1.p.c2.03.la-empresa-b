@@ -15,28 +15,48 @@
  * Considere que la clase empleado hereda de una clase persona
  */
 
-import Cl_mCurso from "../models/Cl_mEmpresa.js";
-import { I_vCurso } from "../interfaces/I_vCurso.js";
-import Cl_cAlumno from "./Cl_cAdministrativo.js";
+import Cl_mEmpresa from "../models/Cl_mEmpresa.js";
+import I_vEmpresa from "../interfaces/I_vEmpresa.js";
+import I_vEmpleado from "../interfaces/I_vEmpleado.js";
+import Cl_cAdministrativo from "./Cl_cAdministrativo.js";
+import Cl_cObrero from "./Cl_cObrero.js";
 
-export default class Cl_cCurso {
-  private mCurso: Cl_mCurso = new Cl_mCurso();
-  private vCurso: I_vCurso;
-  private cAlumno: Cl_cAlumno;
+export default class Cl_cEmpresa {
+  private mEmpresa: Cl_mEmpresa = new Cl_mEmpresa();
+  private vEmpresa: I_vEmpresa;
+  private cAdministrativo: Cl_cAdministrativo;
+  private cObrero: Cl_cObrero;
+  private vObrero: I_vEmpleado;
+  private vAdministrativo: I_vEmpleado;
 
-  // Recibe la vista de la bodega y el controlador del Alumno ya armado
-  constructor(vistaCurso: I_vCurso, controladorAlumno: Cl_cAlumno) {
-    this.vCurso = vistaCurso;
-    this.cAlumno = controladorAlumno;
+  // Recibe la vista de la empresa, las vistas y los controladores ya armados
+  constructor(vistaEmpresa: I_vEmpresa, vistaObrero: I_vEmpleado, vistaAdministrativo: I_vEmpleado, controladorObrero: Cl_cObrero, controladorAdministrativo: Cl_cAdministrativo) {
+    this.vEmpresa = vistaEmpresa;
+    this.vObrero = vistaObrero;
+    this.vAdministrativo = vistaAdministrativo;
+    this.cObrero = controladorObrero;
+    this.cAdministrativo = controladorAdministrativo;
 
-    this.vCurso.onNuevoAlumno(() => this.procesar1Alumno());
+    this.vEmpresa.onNuevoEmpleado(() => this.procesarObrero());
+    this.vEmpresa.onNuevoAdministrativo(() => this.procesarAdministrativo());
   }
 
-  private procesar1Alumno() {
-    this.cAlumno.solicitarAlumno((alumno) => {
-      if (alumno !== null) {
-        this.mCurso.procesarAlumno(alumno);
-        this.vCurso.reportar({ notaPromedio: this.mCurso.notaPromedio()});
+  private procesarObrero() {
+    this.vAdministrativo.ocultar();
+    this.cObrero.solicitarAlumno((empleado) => {
+      if (empleado !== null) {
+        this.mEmpresa.procesarEmpleado(empleado);
+        this.vEmpresa.reportar({ nombreMayorAumento: this.mEmpresa.nombreMayorAumento, totalNominaNueva: this.mEmpresa.totalNominaNueva });
+      }
+    });
+  }
+
+  private procesarAdministrativo() {
+    this.vObrero.ocultar();
+    this.cAdministrativo.solicitarAlumno((empleado) => {
+      if (empleado !== null) {
+        this.mEmpresa.procesarEmpleado(empleado);
+        this.vEmpresa.reportar({ nombreMayorAumento: this.mEmpresa.nombreMayorAumento, totalNominaNueva: this.mEmpresa.totalNominaNueva });
       }
     });
   }
